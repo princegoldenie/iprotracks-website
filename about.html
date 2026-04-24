@@ -1,0 +1,209 @@
+import Link from "next/link";
+import {
+  Globe,
+  Target,
+  Rocket,
+  Users,
+  GraduationCap,
+  Briefcase,
+  Lightbulb,
+  HeartHandshake,
+} from "lucide-react";
+
+const values = [
+  {
+    title: "Learn",
+    description:
+      "Practical, globally relevant education designed for real-world impact.",
+    icon: GraduationCap,
+  },
+  {
+    title: "Earn",
+    description:
+      "Transform knowledge into measurable income and economic opportunity.",
+    icon: Briefcase,
+  },
+  {
+    title: "Innovate",
+    description:
+      "Build solutions, launch ventures, and create meaningful change.",
+    icon: Lightbulb,
+  },
+  {
+    title: "Impact",
+    description:
+      "Empower communities, industries, and future generations.",
+    icon: HeartHandshake,
+  },
+];
+
+export default function AboutPage() {
+  return (
+    <main className="bg-white text-black">
+      {/* Hero */}
+      <section className="relative py-24 px-6 bg-gradient-to-br from-black via-zinc-900 to-amber-950 text-white">
+        <div className="max-w-6xl mx-auto text-center">
+          <p className="text-amber-400 font-semibold mb-4">
+            About IPPN Global Academy
+          </p>
+
+          <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-8">
+            Building Africa's
+            <span className="block bg-gradient-to-r from-amber-400 to-yellow-200 bg-clip-text text-transparent">
+              Learning-to-Income Ecosystem
+            </span>
+          </h1>
+
+          <p className="text-xl text-zinc-300 max-w-4xl mx-auto leading-relaxed">
+            IPPN Global Academy is creating the infrastructure that empowers
+            millions to learn practical skills, earn income, and build
+            extraordinary futures.
+          </p>
+        </div>
+      </section>
+
+      {/* Mission */}
+      <section className="py-24 px-6">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <div className="inline-flex p-4 rounded-2xl bg-amber-100 mb-8">
+              <Target className="w-10 h-10 text-amber-700" />
+            </div>
+
+            <h2 className="text-4xl font-bold mb-6">
+              Our Mission
+            </h2>
+
+            <p className="text-lg text-zinc-700 leading-relaxed mb-6">
+              Education should not end with certificates. It should lead to
+              opportunity, income, innovation, and transformation.
+            </p>
+
+            <p className="text-lg text-zinc-700 leading-relaxed">
+              We bridge the gap between learning and earning by building a
+              complete ecosystem where skills translate directly into economic
+              outcomes.
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-10 rounded-3xl border border-amber-200">
+            <Rocket className="w-14 h-14 text-amber-600 mb-6" />
+
+            <h3 className="text-3xl font-bold mb-4">
+              Our Vision
+            </h3>
+
+            <p className="text-zinc-700 text-lg leading-relaxed">
+              A future where every young person can confidently say:
+            </p>
+
+            <blockquote className="mt-6 text-3xl font-bold text-amber-700 italic">
+              "I learn for a living."
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Philosophy */}
+      <section className="py-24 px-6 bg-zinc-50">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-5xl font-bold mb-6">
+            Our Philosophy
+          </h2>
+
+          <p className="text-xl text-zinc-600 max-w-4xl mx-auto mb-20">
+            Learn → Earn → Innovate → Network → Lead → Impact
+          </p>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map((value) => (
+              <div
+                key={value.title}
+                className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300"
+              >
+                <value.icon className="w-12 h-12 text-amber-600 mb-6 mx-auto" />
+                <h3 className="text-2xl font-bold mb-4">
+                  {value.title}
+                </h3>
+                <p className="text-zinc-600">
+                  {value.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why IPPN */}
+      <section className="py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-bold mb-6">
+              Why We Exist
+            </h2>
+
+            <p className="text-xl text-zinc-600 max-w-4xl mx-auto">
+              Traditional education teaches. IPPN transforms.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Globe,
+                title: "Global Relevance",
+                text:
+                  "Industry-aligned programs built for international opportunities.",
+              },
+              {
+                icon: Users,
+                title: "Community-Driven",
+                text:
+                  "A thriving ecosystem of mentors, peers, and collaborators.",
+              },
+              {
+                icon: Briefcase,
+                title: "Outcome-Focused",
+                text:
+                  "We prioritize income, careers, and real-world transformation.",
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="p-10 rounded-3xl border border-zinc-200 hover:border-amber-400 transition-all"
+              >
+                <item.icon className="w-12 h-12 text-amber-600 mb-6" />
+                <h3 className="text-2xl font-bold mb-4">
+                  {item.title}
+                </h3>
+                <p className="text-zinc-600 leading-relaxed">
+                  {item.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 px-6 bg-black text-white text-center">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-5xl font-bold mb-6">
+            Join The Future
+          </h2>
+
+          <p className="text-xl text-zinc-300 mb-10">
+            Learn anytime, anywhere — while earning.
+          </p>
+
+          <Link
+            href="/courses"
+            className="inline-flex px-10 py-5 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-bold text-lg hover:scale-105 transition-transform"
+          >
+            Explore ProTracks
+          </Link>
+        </div>
+      </section>
+    </main>
+  );
+}
