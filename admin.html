@@ -1,0 +1,135 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | IPPN iProTracks</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="js/script.js" defer></script>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <h2>IPPN</h2>
+            <span>Admin Panel</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="active">
+                <a href="#" id="navDashboard">
+                    <i class="fas fa-chart-line"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="#" id="navUsers">
+                    <i class="fas fa-users"></i>
+                    Users
+                </a>
+            </li>
+
+            <li>
+                <a href="#" id="navPayments">
+                    <i class="fas fa-credit-card"></i>
+                    Payments
+                </a>
+            </li>
+
+            <li>
+                <a href="#" id="navCourses">
+                    <i class="fas fa-book-open"></i>
+                    Courses
+                </a>
+            </li>
+
+            <li>
+                <a href="#" id="navEnrollments">
+                    <i class="fas fa-graduation-cap"></i>
+                    Enrollments
+                </a>
+            </li>
+
+            <li>
+                <a href="dashboard.html">
+                    <i class="fas fa-user"></i>
+                    Student Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="#" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+
+        <header class="dashboard-header">
+            <div>
+                <h1>Admin Dashboard</h1>
+                <p>Manage your academy from one place.</p>
+            </div>
+
+            <div class="admin-profile">
+                <span id="adminName">Administrator</span>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <section class="stats-grid">
+
+            <div class="dash-card stat-card">
+                <i class="fas fa-users"></i>
+                <h3 id="totalUsers">0</h3>
+                <p>Total Users</p>
+            </div>
+
+            <div class="dash-card stat-card">
+                <i class="fas fa-credit-card"></i>
+                <h3 id="pendingPayments">0</h3>
+                <p>Pending Payments</p>
+            </div>
+
+            <div class="dash-card stat-card">
+                <i class="fas fa-book-open"></i>
+                <h3 id="totalCourses">0</h3>
+                <p>Total Courses</p>
+            </div>
+
+            <div class="dash-card stat-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3 id="totalEnrollments">0</h3>
+                <p>Total Enrollments</p>
+            </div>
+
+        </section>
+
+        <!-- Dynamic Content -->
+        <section class="dashboard-section">
+            <div id="adminContent">
+                <div class="dash-card">
+                    <h2>Welcome, Administrator</h2>
+                    <p>
+                        Use the sidebar to manage users, payments,
+                        courses, and enrollments.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

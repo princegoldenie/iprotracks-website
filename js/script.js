@@ -360,3 +360,209 @@ async function logout() {
     localStorage.removeItem("ippnUser");
     window.location.href = "login.html";
 }
+/*
+========================================
+ADMIN DASHBOARD SYSTEM
+========================================
+*/
+
+async function verifyAdmin() {
+    const user = JSON.parse(localStorage.getItem("ippnUser"));
+
+    if (!user) {
+        window.location.href = "login.html";
+        return null;
+    }
+
+    const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
+
+    if (error || !profile || profile.role !== "admin") {
+        alert("Access denied. Admins only.");
+        window.location.href = "dashboard.html";
+        return null;
+    }
+
+    document.getElementById("adminName").textContent =
+        profile.full_name || "Administrator";
+
+    return profile;
+}
+
+async function loadAdminStats() {
+    const [
+        usersResult,
+        paymentsResult,
+        coursesResult,
+        enrollmentsResult
+    ] = await Promise.all([
+        supabase.from("profiles").select("*", { count: "exact", head: true }),
+        supabase.from("payments")
+            .select("*", { count: "exact", head: true })
+            .eq("status", "pending"),
+        supabase.from("courses").select("*", { count: "exact", head: true }),
+        supabase.from("enrollments").select("*", { count: "exact", head: true })
+    ]);
+
+    document.getElementById("totalUsers").textContent =
+        usersResult.count || 0;
+
+    document.getElementById("pendingPayments").textContent =
+        paymentsResult.count || 0;
+
+    document.getElementById("totalCourses").textContent =
+        coursesResult.count || 0;
+
+    document.getElementById("totalEnrollments").textContent =
+        enrollmentsResult.count || 0;
+}
+
+async function loadUsers() {
+    const { data: users, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        alert(error.message);
+        return;
+    }
+
+    document.getElementById("adminContent").innerHTML = `
+        <div class="dash-card">
+            <h2>All Users</h2>
+
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${users.map(user => `
+                            <tr>
+                                <td>${user.full_name || "-"}</td>
+                                <td>${user.email}</td>
+                                <td>${user.role}</td>
+                            </tr>
+                        `).join("")}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+}
+
+async function loadPayments() {
+    const { data: payments, error } = await supabase
+        .from("payments")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        alert(error.message);
+        return;
+    }
+
+    document.getElementById("adminContent").innerHTML = `
+        <div class="dash-card">
+            <h2>Payment Approvals</h2>
+
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Bank</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${payments.map(payment => `
+                            <tr>
+                                <td>${payment.user_id}</td>
+                                <td>${payment.bank_name}</td>
+                                <td>${payment.status}</td>
+                                <td>
+                                    ${
+                                        payment.status === "pending"
+                                            ? `<button class="btn-success"
+                                                onclick="approvePayment('${payment.id}')">
+                                                Approve
+                                            </button>`
+                                            : "Approved"
+                                    }
+                                </td>
+                            </tr>
+                        `).join("")}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+}
+
+window.approvePayment = async function (paymentId) {
+    const { error } = await supabase
+        .from("payments")
+        .update({ status: "approved" })
+        .eq("id", paymentId);
+
+    if (error) {
+        alert(error.message);
+        return;
+    }
+
+    alert("Payment approved successfully.");
+    await loadAdminStats();
+    await loadPayments();
+};
+
+async function initializeAdmin() {
+    const admin = await verifyAdmin();
+
+    if (!admin) return;
+
+    await loadAdminStats();
+
+    document.getElementById("navDashboard")?.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        await loadAdminStats();
+
+        document.getElementById("adminContent").innerHTML = `
+            <div class="dash-card">
+                <h2>Welcome, Administrator</h2>
+                <p>Use the sidebar to manage your academy.</p>
+            </div>
+        `;
+    });
+
+    document.getElementById("navUsers")?.addEventListener("click", async (e) => {
+        e.preventDefault();
+        await loadUsers();
+    });
+
+    document.getElementById("navPayments")?.addEventListener("click", async (e) => {
+        e.preventDefault();
+        await loadPayments();
+    });
+
+    document.getElementById("logoutBtn")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        logout();
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (window.location.pathname.includes("admin")) {
+        initializeAdmin();
+    }
+});

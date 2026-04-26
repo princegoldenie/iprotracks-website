@@ -1298,3 +1298,60 @@ section {
     font-size: 0.9rem;
     color: #555;
 }
+
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.stat-card {
+    text-align: center;
+}
+
+.stat-card i {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #c8a45d;
+}
+
+.admin-profile {
+    font-weight: 700;
+    color: #333;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-table th {
+    background: #111;
+    color: #fff;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
