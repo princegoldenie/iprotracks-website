@@ -5,15 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPPN iProTracks | Learn Anytime, Anywhere — While Earning</title>
 
+    <!-- Main Styles -->
     <link rel="stylesheet" href="css/style.css">
-    <script defer src="js/script.js"></script>
 
+    <!-- Font Awesome -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Typed JS -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <!-- Main Script -->
+    <script defer src="js/script.js"></script>
 </head>
 <body>
 
-    <!-- Navigation -->
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
     <header class="navbar">
         <div class="container">
             <a href="index.html" class="logo">
@@ -39,16 +48,19 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- =========================
+         HERO SECTION
+    ========================== -->
     <section class="hero">
         <div class="hero-overlay"></div>
+        <div class="hero-particles"></div>
 
         <div class="container hero-content">
             <p class="hero-tag">IPPN GLOBAL ACADEMY</p>
 
             <h1>
                 Learn Anytime,<br>
-                Anywhere — <span>While Earning.</span>
+                <span id="typed-text"></span>
             </h1>
 
             <p class="hero-description">
@@ -66,19 +78,26 @@
                 </a>
             </div>
         </div>
+
+        <div class="hero-scroll">
+            <span>Scroll Down</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
     </section>
 
-    <!-- Stats -->
+    <!-- =========================
+         STATS
+    ========================== -->
     <section class="stats">
         <div class="container stats-grid">
 
             <div class="stat-card">
-                <h2>10+</h2>
+                <h2><span class="counter" data-target="10">0</span>+</h2>
                 <p>Professional Tracks</p>
             </div>
 
             <div class="stat-card">
-                <h2>100%</h2>
+                <h2><span class="counter" data-target="100">0</span>%</h2>
                 <p>Practical Learning</p>
             </div>
 
@@ -95,7 +114,9 @@
         </div>
     </section>
 
-    <!-- Features -->
+    <!-- =========================
+         FEATURES
+    ========================== -->
     <section class="features">
         <div class="container">
 
@@ -106,7 +127,7 @@
 
             <div class="feature-grid">
 
-                <div class="feature-card">
+                <div class="feature-card hidden">
                     <i class="fas fa-graduation-cap"></i>
                     <h3>World-Class Learning</h3>
                     <p>
@@ -115,7 +136,7 @@
                     </p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card hidden">
                     <i class="fas fa-coins"></i>
                     <h3>Learn To Earn</h3>
                     <p>
@@ -124,7 +145,7 @@
                     </p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card hidden">
                     <i class="fas fa-users"></i>
                     <h3>Mentorship & Community</h3>
                     <p>
@@ -133,7 +154,7 @@
                     </p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card hidden">
                     <i class="fas fa-briefcase"></i>
                     <h3>Career Opportunities</h3>
                     <p>
@@ -146,10 +167,13 @@
         </div>
     </section>
 
-    <!-- CTA -->
+    <!-- =========================
+         CALL TO ACTION
+    ========================== -->
     <section class="cta">
         <div class="container">
             <h2>Start Your Journey Today</h2>
+
             <p>
                 Join a new generation of learners building skills,
                 income, and global opportunities.
@@ -161,15 +185,68 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
+    <!-- =========================
+         FOOTER
+========================== -->
+<footer class="footer">
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <!-- BRAND -->
+            <div class="footer-col footer-brand">
+                <h2>IPPN Global Academy</h2>
+                <p>
+                    iProTracks — Learn Anytime, Anywhere, While Earning.  
+                    Building a future where learning creates income, opportunity, and independence.
+                </p>
+            </div>
+
+            <!-- QUICK LINKS -->
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Programs</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- SUPPORT -->
+            <div class="footer-col">
+                <h3>Support & Learning</h3>
+<ul>
+    <li><a href="help.html">Learning Help Center</a></li>
+    <li><a href="dashboard.html">Access Student Dashboard</a></li>
+    <li><a href="faqs.html">Frequently Asked Questions</a></li>
+    <li><a href="community.html">Join Student Community</a></li>
+</ul>
+
+            <!-- CONTACT + SOCIALS -->
+            <div class="footer-col footer-contact">
+                <h3>Contact</h3>
+
+                <p>Email: ippnglobalacademy@gmail.com</p>
+                <p>Lagos, Nigeria</p>
+
+                <div class="socials">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- BOTTOM BAR -->
+        <div class="footer-bottom">
             <p>
-                © 2026 IPPN Global Academy — iProTracks.
-                All Rights Reserved.
+                © 2026 IPPN Global Academy — iProTracks. All Rights Reserved.
             </p>
         </div>
-    </footer>
 
-</body>
-</html>
+    </div>
+</footer>
