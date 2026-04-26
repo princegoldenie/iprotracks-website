@@ -2,139 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard | IPPN iProTracks</title>
+    <title>Dashboard | IPPN iProTracks</title>
 
     <link rel="stylesheet" href="css/style.css">
-    <script defer src="js/script.js"></script>
+    <script defer type="module" src="js/dashboard.js"></script>
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="dashboard-body">
-    
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="sidebar-brand">
-            <h2>IPPN</h2>
-            <span>iProTracks</span>
+<body class="dashboard-body">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <div class="sidebar-brand">
+        <h2>IPPN</h2>
+        <span>Student Panel</span>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li class="active"><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="learning.html"><i class="fas fa-book"></i> My Learning</a></li>
+        <li><a href="#"><i class="fas fa-certificate"></i> Certificates</a></li>
+        <li><a href="#" onclick="logout()"><i class="fas fa-sign-out"></i> Logout</a></li>
+    </ul>
+
+</div>
+
+<!-- MAIN -->
+<div class="dashboard-main">
+
+    <div class="dashboard-header">
+        <h1>Welcome Back 👋</h1>
+        <p id="userEmail">Loading user...</p>
+    </div>
+
+    <!-- STATS -->
+    <div class="dashboard-stats">
+
+        <div class="dash-card">
+            <i class="fas fa-book-open"></i>
+            <h3 id="courseCount">0</h3>
+            <p>Enrolled Courses</p>
         </div>
 
-        <ul class="sidebar-menu">
-            <li class="active"><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
-            <li><a href="#"><i class="fas fa-book-open"></i> My Courses</a></li>
-            <li><a href="#"><i class="fas fa-tasks"></i> Assignments</a></li>
-            <li><a href="#"><i class="fas fa-wallet"></i> IL2E Earnings</a></li>
-            <li><a href="#"><i class="fas fa-certificate"></i> Certificates</a></li>
-            <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
-            <li></li><a href="#" onclick="logout()">
-    <i class="fas fa-sign-out-alt"></i> Logout
-</a></li>
-        </ul>
-    </aside>
+        <div class="dash-card">
+            <i class="fas fa-chart-line"></i>
+            <h3 id="progressCount">0%</h3>
+            <p>Average Progress</p>
+        </div>
 
-    <!-- Main Content -->
-    <main class="dashboard-main">
+        <div class="dash-card">
+            <i class="fas fa-trophy"></i>
+            <h3 id="certCount">0</h3>
+            <p>Certificates</p>
+        </div>
 
-        <!-- Top Bar -->
-        <header class="dashboard-header">
-            <h1>Welcome Back, Pioneer 👋</h1>
-            <p>Your future is compounding daily.</p>
-        </header>
+    </div>
 
-        <!-- Stats -->
-        <section class="dashboard-stats">
+    <!-- COURSES -->
+    <div class="dashboard-section">
 
-            <div class="dash-card">
-                <i class="fas fa-book"></i>
-                <h3>3</h3>
-                <p>Active Courses</p>
-            </div>
+        <div class="section-title">
+            <h2>My Courses</h2>
+        </div>
 
-            <div class="dash-card">
-                <i class="fas fa-chart-line"></i>
-                <h3>78%</h3>
-                <p>Average Progress</p>
-            </div>
+        <div id="courseGrid" class="course-grid"></div>
 
-            <div class="dash-card">
-                <i class="fas fa-wallet"></i>
-                <h3>$145</h3>
-                <p>IL2E Earnings</p>
-            </div>
+    </div>
 
-            <div class="dash-card">
-                <i class="fas fa-award"></i>
-                <h3>2</h3>
-                <p>Certificates Earned</p>
-            </div>
-
-        </section>
-
-        <!-- Courses -->
-        <section class="dashboard-section">
-            <div class="section-title">
-                <h2>Continue Learning</h2>
-            </div>
-
-            <div class="course-grid">
-
-                <div class="course-card">
-                    <h3>Full Stack Web Development</h3>
-                    <p>Progress: 82%</p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width:82%;"></div>
-                    </div>
-                    <button class="btn-primary">Resume Course</button>
-                </div>
-
-                <div class="course-card">
-                    <h3>AI & Machine Learning</h3>
-                    <p>Progress: 61%</p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width:61%;"></div>
-                    </div>
-                    <button class="btn-primary">Resume Course</button>
-                </div>
-
-                <div class="course-card">
-                    <h3>Digital Marketing Mastery</h3>
-                    <p>Progress: 91%</p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width:91%;"></div>
-                    </div>
-                    <button class="btn-primary">Resume Course</button>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Activity -->
-        <section class="dashboard-section">
-            <div class="section-title">
-                <h2>Recent Activity</h2>
-            </div>
-
-            <div class="activity-feed">
-                <div class="activity-item">
-                    <i class="fas fa-play-circle"></i>
-                    Completed Module 8 in Web Development
-                </div>
-
-                <div class="activity-item">
-                    <i class="fas fa-dollar-sign"></i>
-                    Earned $25 through IL2E referral rewards
-                </div>
-
-                <div class="activity-item">
-                    <i class="fas fa-certificate"></i>
-                    Certificate unlocked in Digital Marketing
-                </div>
-            </div>
-        </section>
-
-    </main>
+</div>
 
 </body>
 </html>

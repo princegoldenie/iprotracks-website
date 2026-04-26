@@ -1,6 +1,8 @@
 // ===============================
-// IPPN iProTracks Main JavaScript (UPGRADED)
+// IPPN iProTracks Main JavaScript (PRODUCTION READY)
 // ===============================
+
+import { supabase } from "./supabase.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     initializeMobileMenu();
@@ -10,11 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeCounters();
     initializeTypewriter();
     initializeFormHandlers();
+    checkAuthState();
 });
 
 /*
 =================================
-Mobile Navigation Toggle
+MOBILE MENU
 =================================
 */
 function initializeMobileMenu() {
@@ -29,18 +32,15 @@ function initializeMobileMenu() {
         const icon = menuToggle.querySelector("i");
 
         if (icon) {
-            if (navLinks.classList.contains("active")) {
-                icon.classList.replace("fa-bars", "fa-times");
-            } else {
-                icon.classList.replace("fa-times", "fa-bars");
-            }
+            icon.classList.toggle("fa-bars");
+            icon.classList.toggle("fa-times");
         }
     });
 }
 
 /*
 =================================
-Navbar Scroll Effect
+NAVBAR EFFECT
 =================================
 */
 function initializeNavbarEffects() {
@@ -48,32 +48,26 @@ function initializeNavbarEffects() {
     if (!navbar) return;
 
     window.addEventListener("scroll", () => {
-        if (window.scrollY > 50) {
-            navbar.style.boxShadow = "0 12px 40px rgba(0,0,0,0.18)";
-            navbar.style.backdropFilter = "blur(10px)";
-        } else {
-            navbar.style.boxShadow = "0 2px 15px rgba(0,0,0,0.06)";
-        }
+        navbar.style.boxShadow =
+            window.scrollY > 50
+                ? "0 12px 40px rgba(0,0,0,0.18)"
+                : "0 2px 15px rgba(0,0,0,0.06)";
     });
 }
 
 /*
 =================================
-Smooth Scrolling
+SMOOTH SCROLL
 =================================
 */
 function initializeSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
+        anchor.addEventListener("click", (e) => {
             e.preventDefault();
 
-            const target = document.querySelector(this.getAttribute("href"));
-
+            const target = document.querySelector(anchor.getAttribute("href"));
             if (target) {
-                target.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
+                target.scrollIntoView({ behavior: "smooth" });
             }
         });
     });
@@ -81,7 +75,7 @@ function initializeSmoothScrolling() {
 
 /*
 =================================
-Scroll Reveal Animation (UPGRADED)
+SCROLL ANIMATIONS
 =================================
 */
 function initializeScrollAnimations() {
@@ -95,9 +89,7 @@ function initializeScrollAnimations() {
                 entry.target.classList.add("show");
             }
         });
-    }, {
-        threshold: 0.15
-    });
+    }, { threshold: 0.15 });
 
     elements.forEach(el => {
         el.classList.add("hidden");
@@ -107,7 +99,7 @@ function initializeScrollAnimations() {
 
 /*
 =================================
-COUNTER ANIMATION (STATS)
+COUNTERS
 =================================
 */
 function initializeCounters() {
@@ -136,7 +128,7 @@ function initializeCounters() {
 
 /*
 =================================
-TYPEWRITER EFFECT (HERO)
+TYPEWRITER
 =================================
 */
 function initializeTypewriter() {
@@ -155,19 +147,33 @@ function initializeTypewriter() {
         backSpeed: 50,
         backDelay: 1500,
         loop: true,
-        showCursor: true,
         cursorChar: "|"
     });
 }
 
 /*
 =================================
-FORM HANDLERS (SAFE WRAPPER)
+AUTH STATE CHECK (IMPORTANT)
+=================================
+*/
+function checkAuthState() {
+    const session = localStorage.getItem("ippnUser");
+
+    if (!session && window.location.pathname.includes("dashboard")) {
+        window.location.href = "login.html";
+    }
+}
+
+/*
+=================================
+FORM HANDLERS (SUPABASE POWERED)
 =================================
 */
 function initializeFormHandlers() {
 
+    // =============================
     // APPLICATION FORM
+    // =============================
     const form = document.getElementById("applicationForm");
 
     if (form) {
@@ -183,79 +189,174 @@ function initializeFormHandlers() {
                 message: document.getElementById("message")?.value || ""
             };
 
-            const response = await fetch("https://script.google.com/macros/s/AKfycbxP82KWaQsk01brFFcR7-aOlkdyZyQBIu4CDi6ZwCeOAu2-pjvE9D9R0U81lFnL58iB/exec", {
-                method: "POST",
-                body: JSON.stringify(data)
-            });
+            const { error } = await supabase
+                .from("applications")
+                .insert([data]);
 
-            if (response.ok) {
+            if (error) {
+                alert("Error submitting application: " + error.message);
+            } else {
                 alert("Application Submitted Successfully!");
                 form.reset();
-            } else {
-                alert("Something went wrong. Try again.");
             }
         });
     }
 
-    // LOGIN
-    const loginForm = document.getElementById("loginForm");
-
-    if (loginForm) {
-        loginForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            const email = document.getElementById("loginEmail").value.trim();
-            const password = document.getElementById("loginPassword").value;
-
-            const savedUser = JSON.parse(localStorage.getItem("ippnRegisteredUser"));
-
-            if (
-                savedUser &&
-                savedUser.email === email &&
-                savedUser.password === password
-            ) {
-                localStorage.setItem("ippnUser", email);
-                window.location.href = "dashboard.html";
-            } else {
-                alert("Invalid email or password.");
-            }
-        });
-    }
-
-    // SIGNUP
+    // =============================
+    // SIGNUP (SUPABASE AUTH)
+    // =============================
     const signupForm = document.getElementById("signupForm");
 
     if (signupForm) {
-        signupForm.addEventListener("submit", function (e) {
+        signupForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            const name = document.getElementById("signupName")?.value.trim();
-            const email = document.getElementById("signupEmail")?.value.trim();
-            const password = document.getElementById("signupPassword")?.value;
-            const confirmPassword = document.getElementById("confirmPassword")?.value;
+            const name = document.getElementById("signupName").value.trim();
+            const email = document.getElementById("signupEmail").value.trim();
+            const password = document.getElementById("signupPassword").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
 
             if (password !== confirmPassword) {
                 alert("Passwords do not match.");
                 return;
             }
 
-            const user = { name, email, password };
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: {
+                        full_name: name
+                    }
+                }
+            });
 
-            localStorage.setItem("ippnRegisteredUser", JSON.stringify(user));
-            localStorage.setItem("ippnUser", email);
+            if (error) {
+                alert(error.message);
+                return;
+            }
 
-            alert("Account created successfully!");
+            const user = data.user;
+
+            if (user) {
+                const { error: profileError } = await supabase
+                    .from("profiles")
+                    .insert([
+                        {
+                            id: user.id,
+                            full_name: name,
+                            email,
+                            role: "student"
+                        }
+                    ]);
+
+                if (profileError) {
+                    console.error("Profile error:", profileError.message);
+                }
+            }
+
+            alert("Account created! Please verify your email.");
+            window.location.href = "login.html";
+        });
+    }
+
+    // =============================
+    // LOGIN (SUPABASE CLEAN)
+    // =============================
+    const loginForm = document.getElementById("loginForm");
+
+    if (loginForm) {
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById("loginEmail").value.trim();
+            const password = document.getElementById("loginPassword").value;
+
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password
+            });
+
+            if (error) {
+                alert(error.message);
+                return;
+            }
+
+            const user = data.user;
+
+            localStorage.setItem("ippnUser", JSON.stringify({
+                id: user.id,
+                email: user.email,
+                name: user.user_metadata?.full_name || ""
+            }));
+
             window.location.href = "dashboard.html";
         });
     }
 }
 
+    /*
+    =============================
+    PAYMENT REQUEST (WEMA BANK - MANUAL APPROVAL SYSTEM)
+    =============================
+    */
+
+    const paymentBtn = document.getElementById("paymentDoneBtn");
+
+    if (paymentBtn) {
+        paymentBtn.addEventListener("click", async () => {
+
+            try {
+                const user = JSON.parse(localStorage.getItem("ippnUser"));
+
+                if (!user || !user.id) {
+                    alert("Please login first to continue.");
+                    return;
+                }
+
+                // Prevent double submissions (important)
+                paymentBtn.disabled = true;
+                paymentBtn.innerText = "Submitting...";
+
+                const { error } = await supabase.from("payments").insert([
+                    {
+                        user_id: user.id,
+                        amount: "course_fee",
+                        bank_name: "WEMA BANK",
+                        account_name: "IPPN GLOBAL ACADEMY",
+                        account_number: "0127267595",
+                        status: "pending"
+                    }
+                ]);
+
+                if (error) {
+                    console.error(error);
+                    alert("Payment submission failed. Try again.");
+                    paymentBtn.disabled = false;
+                    paymentBtn.innerText = "I Have Made Payment";
+                    return;
+                }
+
+                alert("Payment submitted successfully. Awaiting approval.");
+
+                paymentBtn.innerText = "Submitted ✔";
+                paymentBtn.style.background = "#28a745";
+
+            } catch (err) {
+                console.error(err);
+                alert("Something went wrong.");
+                paymentBtn.disabled = false;
+                paymentBtn.innerText = "I Have Made Payment";
+            }
+        });
+    }
 /*
 =================================
-LOGOUT FUNCTION (GLOBAL)
+LOGOUT (GLOBAL SAFE)
 =================================
 */
-function logout() {
+async function logout() {
+    await supabase.auth.signOut();
     localStorage.removeItem("ippnUser");
     window.location.href = "login.html";
 }

@@ -1274,3 +1274,27 @@ section {
     font-size: 2.5rem;
     margin-bottom: 15px;
 }
+
+.payment-box {
+    margin-top: 25px;
+    padding: 18px;
+    border-radius: 14px;
+    background: #fff8e1;
+    border: 1px solid #f1d27a;
+}
+
+.payment-box h3 {
+    margin-bottom: 10px;
+    color: #b8860b;
+}
+
+.bank-details p {
+    margin: 5px 0;
+    font-weight: 600;
+}
+
+.note {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #555;
+}

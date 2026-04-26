@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Instructor Studio | IPPN iProTracks</title>
+
+<link rel="stylesheet" href="css/style.css">
+<script defer type="module" src="js/instructor.js"></script>
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="dashboard-body">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <div class="sidebar-brand">
+        <h2>IPPN</h2>
+        <span>Instructor Studio</span>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li class="active"><a href="#"><i class="fas fa-plus"></i> Create Course</a></li>
+        <li><a href="#"><i class="fas fa-book"></i> My Courses</a></li>
+        <li><a href="dashboard.html"><i class="fas fa-arrow-left"></i> Back to Dashboard</a></li>
+        <li><a href="#" onclick="logout()"><i class="fas fa-sign-out"></i> Logout</a></li>
+    </ul>
+
+</div>
+
+<!-- MAIN -->
+<div class="dashboard-main">
+
+    <div class="dashboard-header">
+        <h1>Instructor Studio</h1>
+        <p>Create and manage your courses</p>
+    </div>
+
+    <!-- CREATE COURSE -->
+    <div class="course-card">
+
+        <h2>Create New Course</h2>
+
+        <input type="text" id="courseTitle" placeholder="Course Title">
+        <br><br>
+
+        <textarea id="courseDesc" placeholder="Course Description"></textarea>
+        <br><br>
+
+        <button id="createCourseBtn" class="btn-primary">
+            Create Course
+        </button>
+
+    </div>
+
+    <br><br>
+
+    <!-- ADD LESSON -->
+    <div class="course-card">
+
+        <h2>Add Lesson</h2>
+
+        <select id="courseSelect"></select>
+        <br><br>
+
+        <input type="text" id="lessonTitle" placeholder="Lesson Title">
+        <br><br>
+
+        <input type="text" id="videoUrl" placeholder="Video URL (YouTube embed)">
+        <br><br>
+
+        <textarea id="lessonContent" placeholder="Lesson Content"></textarea>
+        <br><br>
+
+        <button id="addLessonBtn" class="btn-primary">
+            Add Lesson
+        </button>
+
+    </div>
+
+</div>
+
+</body>
+</html>
